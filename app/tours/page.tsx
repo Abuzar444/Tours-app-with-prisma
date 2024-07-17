@@ -11,11 +11,25 @@ const ToursPage = () => {
     <>
       {message && <>{message.message}</>}
       <form action={formAction}>
-        <Input type='text' name='name' defaultValue='name' />
-        <Input type='text' name='info' defaultValue='info' />
-        <Input type='file' name='image' required accept='image/*' />
-        <Input type='number' name='price' min={0} defaultValue={10} />
-        <Button type='submit'>{pending ? "submitting" : "submit"}</Button>
+        <Input type='text' name='name' defaultValue='name' className='mb-1' />
+        <Input type='text' name='info' defaultValue='info' className='mb-1' />
+        <Input
+          type='file'
+          name='image'
+          required
+          accept='image/*'
+          className='mb-1'
+        />
+        <Input
+          type='number'
+          name='price'
+          min={0}
+          defaultValue={10}
+          className='mb-1'
+        />
+        <Button type='submit' className='mb-1'>
+          {pending ? "submitting" : "submit"}
+        </Button>
       </form>
     </>
   );
