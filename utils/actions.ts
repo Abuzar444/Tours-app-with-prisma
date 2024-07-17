@@ -87,14 +87,18 @@ export const updateTourImageAction = async (
   const id = formData.get("id") as string;
   const validatedFields = validateWithZodSchema(imageSchema, { image });
   const fullPath = await uploadImage(validatedFields.image);
-  await db.tours.update({
-    where: {
-      id,
-    },
-    data: {
-      image: fullPath,
-    },
-  });
-  revalidatePath(`/tours/${id}/edit`);
-  return { message: "Image updated successfully." };
+  try {
+    await db.tours.update({
+      where: {
+        id,
+      },
+      data: {
+        image: fullPath,
+      },
+    });
+    revalidatePath(`/tours/${id}/edit`);
+    return { message: "Image updated successfully." };
+  } catch (error) {
+    return { message: "image updation was failed" };
+  }
 };
