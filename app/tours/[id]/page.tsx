@@ -1,7 +1,6 @@
 import Breadcrumbt from "@/components/Breadcrumbt";
 import { singleTour } from "@/utils/actions";
 import Image from "next/image";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 
 const SingleTour = async ({ params }: { params: { id: string } }) => {
