@@ -7,7 +7,6 @@ import { redirect } from "next/navigation";
 
 const EditPage = async ({ params }: { params: { id: string } }) => {
   const tours = await singleTour(params.id);
-  console.log(tours);
   if (!tours) redirect("/tours");
   return (
     <>
