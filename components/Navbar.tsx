@@ -9,7 +9,7 @@ const Navbar = () => {
       </Link>
       <div className='flex gap-5 text-semibold'>
         <Link href='/'>Home</Link>
-        <Link href='/tours'>Tours</Link>
+        <Link href='/tours'>create tour</Link>
       </div>
       <ModeToggle />
     </div>
