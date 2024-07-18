@@ -29,11 +29,13 @@ model Users {
 }
 
 model Tours {
-  id    String @id @default(uuid())
-  name  String
-  price Int
-  image String
-  info  String
+  id        String   @id @default(uuid())
+  name      String
+  price     Int
+  image     String
+  info      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   // users     Users @relation(fields: [tourId], references: [id], onDelete: Cascade)
   // tourId    String
 }

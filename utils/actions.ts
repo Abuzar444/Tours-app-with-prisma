@@ -4,8 +4,8 @@ import { uploadImage } from "./supabase";
 import { redirect } from "next/navigation";
 import { imageSchema, tourSchema, validateWithZodSchema } from "./schemas";
 import { revalidatePath } from "next/cache";
+import { Tour } from "@/app/page";
 
-// I am unable to deploy on vercel
 export const createTour = async (
   prevState: any,
   formData: FormData
@@ -26,13 +26,26 @@ export const createTour = async (
   redirect("/");
 };
 
-export const fetchToursAction = async () => {
+export type FetchToursResult = Tour[] | { message: string };
+
+export const fetchToursAction = async (): Promise<FetchToursResult> => {
   try {
-    const tours = await db.tours.findMany({});
-    console.log(tours);
+    const tours = await db.tours.findMany({
+      select: {
+        id: true,
+        name: true,
+        info: true,
+        image: true,
+        price: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    if (!tours) return { message: "There are no tours" };
     return tours;
   } catch (error) {
-    console.log(error);
+    return { message: "There was an error" };
   }
 };
 

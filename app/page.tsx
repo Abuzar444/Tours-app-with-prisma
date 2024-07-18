@@ -1,6 +1,6 @@
 import DeleteTour from "@/components/DeleteTour";
 import { Button } from "@/components/ui/button";
-import { fetchToursAction } from "@/utils/actions";
+import { fetchToursAction, FetchToursResult } from "@/utils/actions";
 import { formatCurrency } from "@/utils/format";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,8 +14,21 @@ export type Tour = {
 };
 
 const HomePage = async () => {
-  const tours: Tour[] | undefined = await fetchToursAction();
-  if (tours?.length === 0) {
+  const result: FetchToursResult = await fetchToursAction();
+  if ("message" in result) {
+    return (
+      <div className='flex h-screen items-center justify-center flex-col'>
+        <h1 className='text-3xl'>{result.message}</h1>
+        <Link href='/tours' className='border-2 px-4 py-2 rounded-md'>
+          Create Tours
+        </Link>
+      </div>
+    );
+  }
+
+  const tours: Tour[] = result;
+
+  if (tours.length === 0) {
     return (
       <div className='flex h-screen items-center justify-center flex-col'>
         <h1 className='text-3xl'>There are no tours...</h1>
@@ -25,6 +38,7 @@ const HomePage = async () => {
       </div>
     );
   }
+
   return (
     <div className='my-8'>
       <div className=' relative grid sm:grid-cols-2 lg:grid-cols-3 gap-8'>
