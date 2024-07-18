@@ -49,7 +49,8 @@ export const singleTour = async (id: string) => {
   return tours;
 };
 
-export const deleteTour = async (id: string) => {
+export const deleteTour = async (formData: FormData) => {
+  const id = formData.get("id") as string;
   try {
     await db.tours.delete({
       where: {
