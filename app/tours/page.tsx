@@ -5,7 +5,8 @@ import { createTour } from "@/utils/actions";
 
 const ToursPage = () => {
   return (
-    <>
+    <main>
+      <h1 className='text-center text-3xl font-bold my-6'>Create Tour</h1>
       <FormContainer action={createTour}>
         <Input type='text' name='name' defaultValue='name' className='mb-1' />
         <Input type='text' name='info' defaultValue='info' className='mb-1' />
@@ -27,7 +28,7 @@ const ToursPage = () => {
           submit
         </Button>
       </FormContainer>
-    </>
+    </main>
   );
 };
 
