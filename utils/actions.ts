@@ -4,7 +4,6 @@ import { uploadImage } from "./supabase";
 import { redirect } from "next/navigation";
 import { imageSchema, tourSchema, validateWithZodSchema } from "./schemas";
 import { revalidatePath } from "next/cache";
-import { Tour } from "@/app/page";
 
 const renderError = (error: unknown): { message: string } => {
   console.log(error);
