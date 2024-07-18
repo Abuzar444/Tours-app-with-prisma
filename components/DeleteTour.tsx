@@ -5,7 +5,12 @@ const DeleteTour = ({ tourId }: { tourId: string }) => {
   return (
     <form action={deleteTour}>
       <input type='hidden' name='id' value={tourId} />
-      <Button variant='outline' size='lg' className='rounded-md w-full'>
+      <Button
+        type='submit'
+        variant='outline'
+        size='lg'
+        className='rounded-md w-full'
+      >
         Delete Tour
       </Button>
     </form>
