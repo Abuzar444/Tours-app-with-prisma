@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 
 const SingleTour = async ({ params }: { params: { id: string } }) => {
   const tour = await singleTour(params.id);
+  console.log(tour);
   if (!tour) redirect("/");
   return (
     <section>

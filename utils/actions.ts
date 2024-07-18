@@ -33,38 +33,20 @@ export const createTour = async (
   redirect("/");
 };
 
-export type FetchToursResult = Tour[] | { message: string };
-
-export const fetchToursAction = async (): Promise<FetchToursResult> => {
-  try {
-    const tours = await db.tours.findMany({
-      select: {
-        id: true,
-        name: true,
-        info: true,
-        image: true,
-        price: true,
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
-    if (!tours) return { message: "There are no tours" };
-    return tours;
-  } catch (error) {
-    return renderError(error);
-  }
+export const fetchToursAction = async () => {
+  const tours = await db.tours.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+  return tours;
 };
 
 export const singleTour = async (id: string) => {
-  try {
-    const tours = await db.tours.findUnique({
-      where: { id },
-    });
-    return tours;
-  } catch (error) {
-    return renderError(error);
-  }
+  const tours = await db.tours.findUnique({
+    where: { id },
+  });
+  return tours;
 };
 
 export const deleteTour = async (id: string) => {
