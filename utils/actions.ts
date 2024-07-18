@@ -6,6 +6,13 @@ import { imageSchema, tourSchema, validateWithZodSchema } from "./schemas";
 import { revalidatePath } from "next/cache";
 import { Tour } from "@/app/page";
 
+const renderError = (error: unknown): { message: string } => {
+  console.log(error);
+  return {
+    message: error instanceof Error ? error.message : "an error occurred",
+  };
+};
+
 export const createTour = async (
   prevState: any,
   formData: FormData
@@ -21,7 +28,7 @@ export const createTour = async (
     });
   } catch (error) {
     // console.log(error);
-    return { message: "there was an error..." };
+    return renderError(error);
   }
   redirect("/");
 };
@@ -45,7 +52,7 @@ export const fetchToursAction = async (): Promise<FetchToursResult> => {
     if (!tours) return { message: "There are no tours" };
     return tours;
   } catch (error) {
-    return { message: "There was an error" };
+    return renderError(error);
   }
 };
 
@@ -56,12 +63,11 @@ export const singleTour = async (id: string) => {
     });
     return tours;
   } catch (error) {
-    return { message: "There was an error.." };
+    return renderError(error);
   }
 };
 
 export const deleteTour = async (id: string) => {
-  console.log(id);
   try {
     await db.tours.delete({
       where: {
@@ -71,7 +77,7 @@ export const deleteTour = async (id: string) => {
     revalidatePath("/");
     return { message: "Tour deleted..." };
   } catch (error) {
-    return { message: "deletion was failed" };
+    return renderError(error);
   }
 };
 
@@ -92,7 +98,7 @@ export const updateTour = async (
       },
     });
   } catch (error) {
-    return { message: "updation failed..." };
+    return renderError(error);
   }
   redirect("/");
 };
@@ -117,6 +123,6 @@ export const updateTourImageAction = async (
     revalidatePath(`/tours/${id}/edit`);
     return { message: "Image updated successfully." };
   } catch (error) {
-    return { message: "image updation was failed" };
+    return renderError(error);
   }
 };
