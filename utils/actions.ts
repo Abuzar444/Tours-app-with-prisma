@@ -33,12 +33,17 @@ export const createTour = async (
 };
 
 export const fetchToursAction = async () => {
-  const tours = await db.tours.findMany({
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
-  return tours;
+  try {
+    const tours = await db.tours.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    return tours;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
 };
 
 export const singleTour = async (id: string) => {
