@@ -50,10 +50,14 @@ export const fetchToursAction = async (): Promise<FetchToursResult> => {
 };
 
 export const singleTour = async (id: string) => {
-  const tours = await db.tours.findUnique({
-    where: { id },
-  });
-  return tours;
+  try {
+    const tours = await db.tours.findUnique({
+      where: { id },
+    });
+    return tours;
+  } catch (error) {
+    return { message: "There was an error.." };
+  }
 };
 
 export const deleteTour = async (id: string) => {
